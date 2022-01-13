@@ -26,6 +26,11 @@ Customize the values as desired. The above works well with the doom-one theme I'
 If you want to take this a step further, customize your speedbar faces in your init file to match your icons.
 
 ```
+;; Show unknown files and fix the indentation.
+(setq speedbar-show-unknown-files t)
+(setq speedbar-indentation-width 3)
+
+;;; Customize text color
 (custom-set-faces
 '(speedbar-button-face ((t (:foreground "gray80"))))
 '(speedbar-directory-face ((t (:foreground "gray60"))))
