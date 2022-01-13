@@ -6,6 +6,8 @@ Why turn off the ugly Emacs Speedbar icons when you can replace them with pretty
 
 ## Installation
 
+Pretty speedbar requires [f](https://github.com/rejeep/f.el), which installs via [Melpa](https://melpa.org/).
+
 Download or clone `pretty-speedbar` and place it in the same directory as your init file or wherever you keep extensions.
 
 Add the following to your init file.

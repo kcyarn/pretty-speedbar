@@ -38,7 +38,7 @@
 )
 
 (defcustom pretty-speedbar-icon-size "20"
-  "Set default size in pixels. Applies to both width and height."
+  "Set default size in pixels and applies to both width and height."
   :type '(string)
   :group 'pretty-speedbar)
 
@@ -64,24 +64,24 @@
 
 (defcustom pretty-speedbar-icons-dir
   (expand-file-name (concat user-emacs-directory "pretty-speedbar-icons/"))
-  "Store pretty-speedbar-icons in the pretty-speedbar-icons folder located in the user's default emacs directory."
+  "Store pretty-speedbar-icons in the pretty-speedbar-icons folder located in the user's default Emacs directory."
   :group 'pretty-speedbar)
 
 (defun pretty-speedbar-make-dir ()
+  "Create the pretty-speedbar-icons directory."
   (unless (file-exists-p pretty-speedbar-icons-dir)
     (make-directory pretty-speedbar-icons-dir t)))
-
-;;;; Begin 
 
 ;;; blank to remove the uc checkmarks
 
 (defcustom pretty-speedbar-blank-icon
   (format "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 576 512\" width=\"1\" height=\"1\"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --></svg>")
-  "blank icon to overwrite the uc checkmarks"
+  "Blank icon to overwrite the uc checkmarks."
   :group 'pretty-speedbar
 )
 
 (defun pretty-speedbar-folder-run ()
+  "Build all SVGs as strings."
   (setq pretty-speedbar-svg-head (format "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" width=\"%s\" height=\"%s\"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d=\"" pretty-speedbar-icon-size pretty-speedbar-icon-size))
 
   (setq pretty-speedbar-svg-foot (format "\" style=\"fill:%s;stroke:%s;stroke-width:5;stroke-miterlimit:4;\"/></svg>" pretty-speedbar-icon-fill pretty-speedbar-icon-stroke))
@@ -137,12 +137,14 @@
 )
 
 (defun pretty-speedbar-write-icon (this_icon this_icon_file)
+  "Argument THIS_ICON is the svg text as a string, which this function writes to THIS_ICON_FILE."
   (let ((this_file_path (expand-file-name this_icon_file pretty-speedbar-icons-dir)))
     (f-write-text this_icon 'utf-8 this_file_path)
   )
 )
 
 (defun pretty-speedbar-generate ()
+  "Generate the icon svg files."
   (interactive)
   (pretty-speedbar-make-dir)
   ;;; Function that sets svg using updated variables.
@@ -168,97 +170,97 @@
 
 (defcustom pretty-speedbar-lock
   (format "(defezimage pretty-lock ((:type svg :file \"%s\" :ascent center)) \"Image used to replace lock.\")" (expand-file-name "lock.svg" pretty-speedbar-icons-dir))
-  "From fontawesome"
+  "Lock image from FontAwesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-chevron-down
   (format "(defezimage pretty-chevron-down ((:type svg :file \"%s\" :ascent center)) \"Image used to replace tag-v.\")" (expand-file-name "chevron-down.svg" pretty-speedbar-icons-dir))
-  "From fontawesome"
+  "Round chevron down from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-chevron-right
   (format "(defezimage pretty-chevron-right ((:type svg :file \"%s\" :ascent center)) \"Image used to replace greater than tag.\")" (expand-file-name "chevron-right.svg" pretty-speedbar-icons-dir))
-  "From fontawesome"
+  "Round right chevron image from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-tag
   (format "(defezimage pretty-tag ((:type svg :file \"%s\" :ascent center)) \"Image used for basic tag.\")" (expand-file-name "tag.svg" pretty-speedbar-icons-dir))
-  "From fontawesome"
+  "Tag from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-tags
   (format "(defezimage pretty-tags ((:type svg :file \"%s\" :ascent center)) \"Image used instead of open and close box.\")" (expand-file-name "tags.svg" pretty-speedbar-icons-dir))
-  "From fontawesome"
+  "Tags (plural) from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-info
   (format "(defezimage pretty-info ((:type svg :file \"%s\" :ascent center)) \"Image used for info tag and data type tag.\")" (expand-file-name "info.svg" pretty-speedbar-icons-dir))
-  "From Fontawesome"
+  "Round i from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-mail
   (format "(defezimage pretty-mail ((:type svg :file \"%s\" :ascent center)) \"Image used for mail.\")" (expand-file-name "mail.svg" pretty-speedbar-icons-dir))
-  "From Fontawesome"
+  "Envelope icon from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-book
   (format "(defezimage pretty-book ((:type svg :file \"%s\" :ascent center)) \"Image used for documentation available.\")" (expand-file-name "book.svg" pretty-speedbar-icons-dir))
-  "From Fontawesome"
+  "Book from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-box-closed
   (format "(defezimage pretty-box-closed ((:type svg :file \"%s\" :ascent center)) \"Image used for box minus replacement because it is closed.\")" (expand-file-name "box-closed.svg" pretty-speedbar-icons-dir))
-  "From Fontawesome"
+  "Box from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-box-open
   (format "(defezimage pretty-box-open ((:type svg :file \"%s\" :ascent center)) \"Image used for box plus replacement because it is open.\")" (expand-file-name "box-open.svg" pretty-speedbar-icons-dir))
-  "From Fontawesome"
+  "Box open from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-blank
   (format "(defezimage pretty-blank ((:type svg :file \"%s\" :ascent center)) \"Blank image to replace UC check.\")" (expand-file-name "blank.svg" pretty-speedbar-icons-dir))
-  "A blank svg image"
+  "A blank svg image."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-folder
   (format "(defezimage pretty-folder ((:type svg :file \"%s\" :ascent center)) \"Image used for closed directories.\")" (expand-file-name "folder.svg" pretty-speedbar-icons-dir))
-  "From Fontawesome"
+  "Folder from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-folder-open
   (format "(defezimage pretty-folder-open ((:type svg :file \"%s\" :ascent center)) \"Image used for closed directories.\")" (expand-file-name "folder-open.svg" pretty-speedbar-icons-dir))
-  "From Fontawesome"
+  "Folder open from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-page
   (format "(defezimage pretty-page ((:type svg :file \"%s\" :ascent center)) \"Image used for documents.\")" (expand-file-name "page.svg" pretty-speedbar-icons-dir))
-  "Fontawesome file-alt"
+  "File-alt from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-plus
   (format "(defezimage pretty-plus ((:type svg :file \"%s\" :ascent center)) \"Image used for plus documents.\")" (expand-file-name "plus.svg" pretty-speedbar-icons-dir))
-  "From Fontawesome"
+  "Plus in a square from Fontawesome."
   :group 'pretty-speedbar
 )
 
 (defcustom pretty-speedbar-minus
   (format "(defezimage pretty-minus ((:type svg :file \"%s\" :ascent center)) \"Image used for minus documents.\")" (expand-file-name "minus.svg" pretty-speedbar-icons-dir))
-  "From Fontawesome"
+  "Minus in a square from Fontawesome."
   :group 'pretty-speedbar
 )
 
@@ -308,3 +310,4 @@
     ))
 
 (provide 'pretty-speedbar)
+;;; pretty-speedbar.el ends here
