@@ -167,11 +167,10 @@
   "Lock image from FontAwesome."
   `(defezimage pretty-lock ((:type svg :file ,(expand-file-name "lock.svg" pretty-speedbar-icons-dir) :ascent center)) "Lock image from FontAwesome."))
 (pretty-speedbar-lock)
-
-;;(defmacro pretty-speedbar-chevron-down ()
-  ;;"Round chevron down from Fontawesome."
-  ;;`(defezimage pretty-chevron-down ((:type svg :file ,(expand-file-name "chevron-down.svg" pretty-speedbar-icons-dir) :ascent center)) "Image used to replace tag-v."))
-;;(pretty-speedbar-chevron-down)
+(defmacro pretty-speedbar-chevron-down ()
+  "Round chevron down from FontAwesome."
+  `(defezimage pretty-chevron-down ((:type svg :file ,(expand-file-name "chevron-down.svg" pretty-speedbar-icons-dir) :ascent center)) "Chevron-down image from FontAwesome."))
+(pretty-speedbar-chevron-down)
 
 (defmacro pretty-speedbar-chevron-right ()
   "Round right chevron image from Fontawesome."
@@ -261,7 +260,7 @@
     ("<i>" . pretty-info)
     (" =>" . pretty-tag)
     (" +>" . pretty-chevron-right)
-    ;;(" ->" . pretty-chevron-down)
+    (" ->" . pretty-chevron-down)
     (">"   . pretty-tag)
     ("@"   . pretty-info)
     ("  @" . pretty-info)
