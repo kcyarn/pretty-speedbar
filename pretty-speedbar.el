@@ -4,7 +4,7 @@
 ;; Created: 2019-11-18
 ;; Version: 0.2
 ;; Last-Updated: 2022-01-13
-;; URL: ADD!
+;; URL: https://github.com/kcyarn/pretty-speedbar
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: speedbar, pretty speedbar, sr-speedbar
 ;; Compatibility:
