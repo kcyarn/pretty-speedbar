@@ -37,7 +37,7 @@ There is no need to set `(setq speedbar-use-images t)` explicitly. If you've pre
 Changing the icon height alters the height and width of all icons, including checks and locks.
 
 ```lisp
-(setq pretty-speedbar-icon-size "20") ;; Icon height in pixels.
+(setq pretty-speedbar-icon-size 20) ;; Icon height in pixels.
 ```
 
 ### Icon Colors
