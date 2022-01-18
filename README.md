@@ -138,7 +138,7 @@ To see these changes, run `M-x pretty-speedbar-generate`.
 | pretty-speedbar-tags | Tags icon used for plus and minus tags generation. | "\uf02c" | nil | ![Default tags](images/pretty-tags.png) -> ![Default tags plus](images/pretty-tags-plus.png) and ![Default tags minus](images/pretty-tags-minus.png) |
 | pretty-speedbar-tag | Single tag icon. Most frequent tag icon. | "\uf02b" | nil | ![Default tag](images/pretty-tag.png) |
 
-##### Righthand Icons
+##### Right Icons
 
 Simply change the unicode to your liking and enter it as follows.
 

@@ -327,8 +327,7 @@
     ("@"   . pretty-tag)
     ("  @" . pretty-tag)
     ("*"   . pretty-check)
-    ("%"   . pretty-lock)
-    ))
+    ("%"   . pretty-lock)))
 
 
 (provide 'pretty-speedbar)
