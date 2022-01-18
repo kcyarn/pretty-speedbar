@@ -4,7 +4,7 @@
 ;; Maintainer: Kristle Chester <kcyarn7@gmail.com>
 ;; Created: 2019-11-18
 ;; Version: 0.2
-;; Last-Updated: 2022-01-13
+;; Last-Updated: 2022-01-17
 ;; URL: https://github.com/kcyarn/pretty-speedbar
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: file, speedbar, sr-speedbar.el
@@ -33,6 +33,10 @@
 (require 'speedbar)
 (require 'svg)
 
+(defconst pretty-speedbar-icons-dir
+  (expand-file-name (concat user-emacs-directory "pretty-speedbar-icons/"))
+  "Store pretty-speedbar-icons in the pretty-speedbar-icons folder located in the user's default Emacs directory.")
+
 (defgroup pretty-speedbar nil
   "Group for pretty-speedbar."
   :group 'pretty-speedbar
@@ -45,6 +49,7 @@
 
 (defcustom pretty-speedbar-icon-size 20
   "Set default size in pixels and applies to both width and height."
+  :type '(integer)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-icon-fill "#C8C8C8"
@@ -82,69 +87,77 @@
   :type '(string)
   :group 'pretty-speedbar)
 
-(defcustom pretty-speedbar-icons-dir
-  (expand-file-name (concat user-emacs-directory "pretty-speedbar-icons/"))
-  "Store pretty-speedbar-icons in the pretty-speedbar-icons folder located in the user's default Emacs directory."
-  :type '(string)
-  :group 'pretty-speedbar)
-
 (defcustom pretty-speedbar-vc-enable t
   "Turn the checkmark for files checked out of a VC on or off.
 Defaults to off."
+  :type '(boolean)
   :group 'pretty-speedbar)
 
 ;;; Set the icon unicode and if it's folder.
 
 (defcustom pretty-speedbar-lock '("\uf023" nil)
-  "Lock icon from FontAwesome used by pretty-lock."
+  "Lock icon from FontAwesome used by `pretty-lock'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-tag '("\uf02b" nil)
-  "Tag from FontAwesome used by pretty-tag."
+  "Tag from FontAwesome used by `pretty-tag'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-tags '("\uf02c" nil)
-  "Tags (plural) from FontAwesome used by pretty-tags-plus and pretty-tags-minus."
+  "Tags (plural) from FontAwesome used by `pretty-tags-plus' and `pretty-tags-minus'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-info '("\uf05a" nil)
-  "Info-circle from FontAwesome used by pretty-info."
+  "Info-circle from FontAwesome used by `pretty-info'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-mail '("\uf0e0" nil)
-  "Envelope from FontAwesome used by pretty-mail."
+  "Envelope from FontAwesome used by `pretty-mail'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-book '("\uf02d" nil)
-  "Book from FontAwesome used by pretty-book."
+  "Book from FontAwesome used by `pretty-book'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-box-closed '("\uf466" nil)
-  "Box from FontAwesome used by pretty-box-closed."
+  "Box from FontAwesome used by `pretty-box-closed'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-box-open '("\uf49e" nil)
-  "Box-open from FontAwesome used by pretty-box-open."
+  "Box-open from FontAwesome used by `pretty-box-open'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-folder '("\uf07b" t)
-  "Folder from FontAwesome used by pretty-folder."
+  "Folder from FontAwesome used by `pretty-folder'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-folder-open '("\uf07c" t)
-  "Folder-open from FontAwesome used by pretty-folder-open."
+  "Folder-open from FontAwesome used by `pretty-folder-open'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-page '("\uf15c" nil)
-  "File-alt from FontAwesome used by pretty-page."
+  "File-alt from FontAwesome used by `pretty-page'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-blank-page '("\uf15b" nil)
-  "File from FontAwesome used by pretty-page-plus and pretty-page-minus."
+  "File from FontAwesome used by `pretty-page-plus' and `pretty-page-minus'."
+  :type '(list string boolean)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-check '("\uf00c")
-  "Check from FontAwesome used by pretty-check."
+  "Check from FontAwesome used by `pretty-check'."
+  :type '(list string)
   :group 'pretty-speedbar)
 
 (defun pretty-speedbar-blank-svg ()
@@ -155,12 +168,12 @@ Defaults to off."
     (svg-print this-svg))))
 
 (defun pretty-speedbar-about-svg (this-name this-list)
-  "Create smaller informative icons, including checkmarks and locks to the right of file."
-  (setq this-icon (car this-list))
-  (setq this-size (* 0.7 pretty-speedbar-icon-size))
+  "Create smaller informative icons, including checkmarks and locks to the right of file.  THIS-NAME refers to the name used both for the svg and ezimage.  THIS-LIST draws from the icon's defcustom or a setq."
 
-  (let ((this-svg (svg-create this-size this-size :viewBox "0 0 512 512")))
-  (svg-text this-svg this-icon
+  (let ((this-icon (car this-list))
+	(this-size (* 0.7 pretty-speedbar-icon-size)))
+    (let ((this-svg (svg-create this-size this-size :viewBox "0 0 512 512")))
+      (svg-text this-svg this-icon
 	    :font-size "470px" ;;; changed from 507
 	    :stroke pretty-speedbar-about-stroke
 	    :fill pretty-speedbar-about-fill
@@ -173,25 +186,21 @@ Defaults to off."
 	    :stroke-width 5)
     (with-temp-file (expand-file-name (concat this-name ".svg") pretty-speedbar-icons-dir)
     (set-buffer-multibyte nil)
-    (svg-print this-svg))))
+    (svg-print this-svg)))))
 
 (defun pretty-speedbar-svg (this-name this-list &optional this-sign)
-  "Function to create individual icon svgs with THIS-LIST being the individual icon's variable."
-  (setq this-icon (car this-list))
-  (setq is-folder (nth 1 this-list))
-
-  (setq pretty-speedbar-icon-width (/ pretty-speedbar-icon-size 0.8643))
-
-  (if is-folder
-      (progn
+  "Function to create individual icon svgs with THIS-NAME as the icon's filename and THIS-LIST being the individual icon's variable.  THIS-SIGN will create a plus or minus sign, if desired."
+  (let ((pretty-speedbar-icon-width (/ pretty-speedbar-icon-size 0.8643))
+	(this-icon (car this-list))
+	(is-folder (nth 1 this-list))
+	(this-pretty-icon-fill pretty-speedbar-icon-fill)
+	(this-pretty-icon-stroke pretty-speedbar-icon-stroke))
+    (let ((this-svg (svg-create pretty-speedbar-icon-width  pretty-speedbar-icon-size :viewBox "0 0 512 512")))
+      (if is-folder
+	(progn
 	(setq this-pretty-icon-fill pretty-speedbar-icon-folder-fill)
-	(setq this-pretty-icon-stroke pretty-speedbar-icon-folder-stroke))
-    (progn
-                      (setq this-pretty-icon-fill pretty-speedbar-icon-fill)
-                      (setq this-pretty-icon-stroke pretty-speedbar-icon-stroke)))
-  
- (let ((this-svg (svg-create pretty-speedbar-icon-width  pretty-speedbar-icon-size :viewBox "0 0 512 512")))
-  (svg-text this-svg this-icon
+	(setq this-pretty-icon-stroke pretty-speedbar-icon-folder-stroke)))
+      (svg-text this-svg this-icon
 	    :font-size "470px" ;;; changed from 507
 	    :stroke this-pretty-icon-stroke
 	    :fill  this-pretty-icon-fill
@@ -202,36 +211,32 @@ Defaults to off."
 	    :text-anchor "middle"
 	    :rendering "optimizeLegibility"
 	    :stroke-width 5)
-  (if (equal this-sign "plus")
-      (progn
-        (svg-rectangle this-svg 224.62 270 64 204.8
+      (if (equal this-sign "plus")
+	  (progn
+	    (svg-rectangle this-svg 224.62 270 64 204.8
 		       :rx 12.8
 		       :ry 12.8
 		       :fill  pretty-speedbar-signs-fill
 		       :fill-rule "evenodd"
 		       :rendering "optimizeLegibility")
-        (svg-rectangle this-svg -398 157.2 64 204.8
+	    (svg-rectangle this-svg -398 157.2 64 204.8
 		       :transform "rotate(-90)"
 		       :rx 12.8
 		       :ry 12.8
 		       :fill  pretty-speedbar-signs-fill
 		       :fill-rule "evenodd"
-		        :rendering "optimizeLegibility")))
-  (if (equal this-sign "minus")
-      (svg-rectangle this-svg -398 157.2 64 204.8
+		       :rendering "optimizeLegibility")))
+      (if (equal this-sign "minus")
+	  (svg-rectangle this-svg -398 157.2 64 204.8
 		 :transform "rotate(-90)"
 		 :rx 12.8
 		 :ry 12.8
 		 :fill  pretty-speedbar-signs-fill
 		 :fill-rule "evenodd"
-		  :rendering "optimizeLegibility"))
-    (with-temp-file (expand-file-name (concat this-name ".svg") pretty-speedbar-icons-dir)
-    (set-buffer-multibyte nil)
-    (svg-print this-svg))
-  ;;; Although using these from :data instead of :file is theoretically possible, it lags badly. Save the files and the headache.
-  ))
-
-;;; complete generator combines all variables with pretty-test-icon function
+		 :rendering "optimizeLegibility"))
+      (with-temp-file (expand-file-name (concat this-name ".svg") pretty-speedbar-icons-dir)
+	(set-buffer-multibyte nil)
+	(svg-print this-svg)))))
 
 (defun pretty-speedbar-make-dir ()
   "Create the pretty-speedbar-icons directory."
@@ -263,12 +268,11 @@ Defaults to off."
 
 ;;; Toggle the pretty-check icon.
 (defmacro pretty-speedbar-vc-icon (this-file)
-  "A blank svg image."
-  `(defezimage pretty-check ((:type svg :file ,(expand-file-name (format "%s.svg" this-file) pretty-speedbar-icons-dir) :ascent center)) "Replacement for ezimage-checkout, which is described as files checked out of a vc with toggle."))
+  "The check image or its blank replacement with THIS-FILE as file name without .svg."
+  `(defezimage pretty-check ((:type svg :file ,(expand-file-name (format "%s.svg" this-file)  (expand-file-name (concat user-emacs-directory "pretty-speedbar-icons/"))) :ascent center)) "Replacement for ezimage-checkout, which is described as files checked out of a vc with toggle."))
 
 (defun pretty-speedbar-toggle-vc ()
   "Function to toggle the VC checkmarks on and off."
-
   (if pretty-speedbar-vc-enable
       (pretty-speedbar-vc-icon "pretty-check")
       (pretty-speedbar-vc-icon "blank")))
@@ -278,9 +282,8 @@ Defaults to off."
 ;;; manually using pretty-page works. Now change it to variables.
 
 (defmacro pretty-speedbar-ezimage (this-name)
-  "Macro for defezimage using the defcustom icon settings list passed as THIS-LIST."
-  `(defezimage ,(intern (format "%s" this-name)) ((:type svg :file ,(expand-file-name (format "%s.svg" this-name) pretty-speedbar-icons-dir) :ascent center)) "Documentation string replace.")
-  )
+  "Macro for defezimage using the defcustom icon settings list passed as THIS-NAME."
+  `(defezimage ,(intern (format "%s" this-name)) ((:type svg :file ,(expand-file-name (format "%s.svg" this-name)  (expand-file-name (concat user-emacs-directory "pretty-speedbar-icons/"))) :ascent center)) "Documentation string replace."))
 
 ;; Manually add the correct documentation for each ezimage. Passing it to the defmacro itself causes compilation errors.
 (pretty-speedbar-ezimage "pretty-lock")
