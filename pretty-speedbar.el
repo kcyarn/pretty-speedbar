@@ -7,7 +7,7 @@
 ;; Last-Updated: 2022-01-17
 ;; URL: https://github.com/kcyarn/pretty-speedbar
 ;; Package-Requires: ((emacs "27.1"))
-;; Keywords: file, speedbar, sr-speedbar.el
+;; Keywords: file, tags, tools
 ;; Compatibility:
 ;; License: GPL-3.0-or-later
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
