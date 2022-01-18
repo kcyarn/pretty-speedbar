@@ -23,10 +23,9 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 ;;; Commentary:
-
 ;; Customize interface definitions.
+;; See README.md for a complete list of customizable definitions and charts matching the icon pictures with their variable and unicode.
 
 ;;; Code:
 
@@ -52,17 +51,17 @@
   :type '(integer)
   :group 'pretty-speedbar)
 
-(defcustom pretty-speedbar-icon-fill "#C8C8C8"
+(defcustom pretty-speedbar-icon-fill "#DCDCDC"
   "Set default non-folder fill color as hex."
   :type '(string)
   :group 'pretty-speedbar)
 
-(defcustom pretty-speedbar-icon-stroke "#333333"
+(defcustom pretty-speedbar-icon-stroke "#000000"
   "Set default non-folder stroke color as hex."
   :type '(string)
   :group 'pretty-speedbar)
 
-(defcustom pretty-speedbar-icon-folder-fill "#888888"
+(defcustom pretty-speedbar-icon-folder-fill "#353839"
   "Set default folder fill color as hex."
   :type '(string)
   :group 'pretty-speedbar)
@@ -77,27 +76,21 @@
   :type '(string)
   :group 'pretty-speedbar)
 
-(defcustom pretty-speedbar-about-stroke "#333333"
+(defcustom pretty-speedbar-about-stroke "#222222"
   "Set default non-folder stroke color as hex."
   :type '(string)
   :group 'pretty-speedbar)
 
-(defcustom pretty-speedbar-signs-fill "#FF0000"
+(defcustom pretty-speedbar-signs-fill "#555555"
   "Set default fill color for plus and minus signs added to select icons."
   :type '(string)
   :group 'pretty-speedbar)
 
-(defcustom pretty-speedbar-vc-enable t
-  "Turn the checkmark for files checked out of a VC on or off.
-Defaults to off."
-  :type '(boolean)
-  :group 'pretty-speedbar)
-
 ;;; Set the icon unicode and if it's folder.
 
-(defcustom pretty-speedbar-lock '("\uf023" nil)
+(defcustom pretty-speedbar-lock '("\uf023")
   "Lock icon from FontAwesome used by `pretty-lock'."
-  :type '(list string boolean)
+  :type '(list string)
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-tag '("\uf02b" nil)
@@ -159,13 +152,6 @@ Defaults to off."
   "Check from FontAwesome used by `pretty-check'."
   :type '(list string)
   :group 'pretty-speedbar)
-
-(defun pretty-speedbar-blank-svg ()
-  "Create a blank image to replace the checkmarks."
-  (let ((this-svg (svg-create 1 1 :viewBox "0 0 512 512")))
-    (with-temp-file (expand-file-name "blank.svg" pretty-speedbar-icons-dir)
-    (set-buffer-multibyte nil)
-    (svg-print this-svg))))
 
 (defun pretty-speedbar-about-svg (this-name this-list)
   "Create smaller informative icons, including checkmarks and locks to the right of file.  THIS-NAME refers to the name used both for the svg and ezimage.  THIS-LIST draws from the icon's defcustom or a setq."
@@ -247,7 +233,6 @@ Defaults to off."
   "Generate the icon svg images."
   (interactive)
   (pretty-speedbar-make-dir)
-  (pretty-speedbar-blank-svg)
   ;;; Create informative icons to the right of the file.
   (pretty-speedbar-about-svg "pretty-check" pretty-speedbar-check)
   (pretty-speedbar-about-svg "pretty-lock" pretty-speedbar-lock)
@@ -266,19 +251,6 @@ Defaults to off."
   (pretty-speedbar-svg "pretty-folder-open" pretty-speedbar-folder-open)
   (pretty-speedbar-svg "pretty-page" pretty-speedbar-page))
 
-;;; Toggle the pretty-check icon.
-(defmacro pretty-speedbar-vc-icon (this-file)
-  "The check image or its blank replacement with THIS-FILE as file name without .svg."
-  `(defezimage pretty-check ((:type svg :file ,(expand-file-name (format "%s.svg" this-file)  (expand-file-name (concat user-emacs-directory "pretty-speedbar-icons/"))) :ascent center)) "Replacement for ezimage-checkout, which is described as files checked out of a vc with toggle."))
-
-(defun pretty-speedbar-toggle-vc ()
-  "Function to toggle the VC checkmarks on and off."
-  (if pretty-speedbar-vc-enable
-      (pretty-speedbar-vc-icon "pretty-check")
-      (pretty-speedbar-vc-icon "blank")))
-
-(pretty-speedbar-toggle-vc)
-
 ;;; manually using pretty-page works. Now change it to variables.
 
 (defmacro pretty-speedbar-ezimage (this-name)
@@ -286,6 +258,9 @@ Defaults to off."
   `(defezimage ,(intern (format "%s" this-name)) ((:type svg :file ,(expand-file-name (format "%s.svg" this-name)  (expand-file-name (concat user-emacs-directory "pretty-speedbar-icons/"))) :ascent center)) "Documentation string replace."))
 
 ;; Manually add the correct documentation for each ezimage. Passing it to the defmacro itself causes compilation errors.
+(pretty-speedbar-ezimage "pretty-check")
+(put 'pretty-check 'function-documentation "Replacement for ezimage-checkout, which is described as files checked out of a vc.")
+
 (pretty-speedbar-ezimage "pretty-lock")
 (put 'pretty-lock 'function-documentation "Replacement for ezimage-lock, which is described as a read only or private.")
 
