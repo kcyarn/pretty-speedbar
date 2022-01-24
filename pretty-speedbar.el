@@ -24,14 +24,26 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ;;; Commentary:
-;; Pretty Speedbar defaults to Font Awesome 5 Free Solid, which must be installed from the otf available from Font Awesome's GitHub repository -- https://github.com/FortAwesome/Font-Awesome.
-;; To use svg icons, you must first run pretty-speedbar-generate.  This creates static icon files in the pretty-speedbar-icons-dir.  Alternatively, icons may be created by hand in the pretty-speedbar-icons-dir.
-;; To customize the folder colors, set a hex color for pretty-speedbar-icon-folder-fill and pretty-speedbar-icon-folder-stroke.
-;; To customize the non-folder icons, set a hex color for pretty-speedbar-icon-fill and pretty-speedbar-icon-stroke.
-;; To customize checks and locks, set a hex color for pretty-speedbar-about-fill and pretty-speedbar-about-stroke.
-;; To customize the plus and minus signs used on both the folder and non-folder icons, set pretty-speedbar-signs-fill.
-;; To alter the icon size, set pretty--speedbar-icon-size.   This sets the folder and non-folder icon height in pixels.  Icon width and the about icons (check and lock icons) are calculated based on this value.
-;; Changing the icon font requires changing the unicode setting for each icon.  Please see the 'Icon Reference' section in the readme file for complete table of these variables matched to their unicodes and the output image.
+;; Pretty Speedbar defaults to Font Awesome 5 Free Solid, which must be
+;; installed from the otf available from Font Awesome's GitHub repository --
+;; https://github.com/FortAwesome/Font-Awesome.
+;; To use svg icons, you must first run pretty-speedbar-generate.  This
+;; creates static icon files in the pretty-speedbar-icons-dir.  Alternatively,
+;; icons may be created by hand in the pretty-speedbar-icons-dir.
+;; To customize the folder colors, set a hex color for
+;; pretty-speedbar-icon-folder-fill and pretty-speedbar-icon-folder-stroke.
+;; To customize the non-folder icons, set a hex color for
+;; pretty-speedbar-icon-fill and pretty-speedbar-icon-stroke.
+;; To customize checks and locks, set a hex color for
+;; pretty-speedbar-about-fill and pretty-speedbar-about-stroke.
+;; To customize the plus and minus signs used on both the folder and
+;; non-folder icons, set pretty-speedbar-signs-fill.
+;; To alter the icon size, set pretty--speedbar-icon-size.   This sets the
+;; folder and non-folder icon height in pixels.  Icon width and the about
+;; icons (check and lock icons) are calculated based on this value.
+;; Changing the icon font requires changing the unicode setting for each icon.
+;; Please see the 'Icon Reference' section in the readme file for complete
+;; table of these variables matched to their unicodes and the output image.
 ;;; Code:
 
 (require 'speedbar)
@@ -39,7 +51,8 @@
 
 (defconst pretty-speedbar-icons-dir
   (expand-file-name (concat user-emacs-directory "pretty-speedbar-icons/"))
-  "Store pretty-speedbar-icons in the pretty-speedbar-icons folder located in the user's default Emacs directory.")
+  "Store pretty-speedbar-icons in the pretty-speedbar-icons folder.
+This is located in the user's default Emacs directory.")
 
 (defgroup pretty-speedbar nil
   "Group for pretty-speedbar."
@@ -47,7 +60,8 @@
   :prefix "pretty-speedbar-")
 
 (defcustom pretty-speedbar-font "Font Awesome 5 Free Solid"
-  "Set the default icon font To Font Awesome 5 Free Solid obtainable as an otf from github."
+  "Set the default icon font To Font Awesome 5 Free Solid.
+This is obtainable as an otf from github."
   :type '(string)
   :group 'pretty-speedbar)
 
@@ -104,7 +118,8 @@
   :group 'pretty-speedbar)
 
 (defcustom pretty-speedbar-tags '("\uf02c" nil)
-  "Tags (plural) from FontAwesome used by `pretty-tags-plus' and `pretty-tags-minus'."
+  "Tags (plural) from FontAwesome.
+See `pretty-tags-plus' and `pretty-tags-minus'."
   :type '(list string boolean)
   :group 'pretty-speedbar)
 
@@ -159,7 +174,9 @@
   :group 'pretty-speedbar)
 
 (defun pretty-speedbar-about-svg (this-name this-list)
-  "Create smaller informative icons, including checkmarks and locks to the right of file.  THIS-NAME refers to the name used both for the svg and ezimage.  THIS-LIST draws from the icon's defcustom or a setq."
+  "Create smaller informative icons, including checkmarks and locks.
+THIS-NAME refers to the name used both for the svg and ezimage.
+THIS-LIST draws from the icon's defcustom or a setq."
 
   (let ((this-icon (car this-list))
 	(this-size (* 0.7 pretty-speedbar-icon-size)))
@@ -180,7 +197,10 @@
     (svg-print this-svg)))))
 
 (defun pretty-speedbar-svg (this-name this-list &optional this-sign)
-  "Function to create individual icon svgs with THIS-NAME as the icon's filename and THIS-LIST being the individual icon's variable.  THIS-SIGN will create a plus or minus sign, if desired."
+  "Function to create individual icon svgs.
+THIS-NAME is the icon's filename.
+THIS-LIST being the individual icon's variable.
+THIS-SIGN will create a plus or minus sign, if desired."
   (let ((pretty-speedbar-icon-width (/ pretty-speedbar-icon-size 0.8643))
 	(this-icon (car this-list))
 	(is-folder (nth 1 this-list))
@@ -197,8 +217,7 @@
 	    :fill  this-pretty-icon-fill
 	    :font-family  (format "\'%s\'" pretty-speedbar-font)
 	    :x "50%"
-	    :y "450" ;;; changed from 90%
-	   ;; :dominant-baseline "middle"
+	    :y "450"
 	    :text-anchor "middle"
 	    :rendering "optimizeLegibility"
 	    :stroke-width 5)
@@ -259,18 +278,18 @@
 ;;; manually using pretty-page works. Now change it to variables.
 
 (defmacro pretty-speedbar-ezimage (this-name)
-  "Macro for defezimage using the defcustom icon settings list passed as THIS-NAME."
+  "Macro for defezimage with THIS-NAME matching icon's name."
   `(defezimage ,(intern (format "%s" this-name)) ((:type svg :file ,(expand-file-name (format "%s.svg" this-name)  (expand-file-name (concat user-emacs-directory "pretty-speedbar-icons/"))) :ascent center)) "Documentation string replace."))
 
 ;; Manually add the correct documentation for each ezimage. Passing it to the defmacro itself causes compilation errors.
 (pretty-speedbar-ezimage "pretty-check")
-(put 'pretty-check 'function-documentation "Replacement for ezimage-checkout, which is described as files checked out of a vc.")
+(put 'pretty-check 'function-documentation "Replacement for ezimage-checkout, which marks files checked out of a vc.")
 
 (pretty-speedbar-ezimage "pretty-lock")
 (put 'pretty-lock 'function-documentation "Replacement for ezimage-lock, which is described as a read only or private.")
 
 (pretty-speedbar-ezimage "pretty-tag")
-(put 'pretty-tag 'function-documentation "Replacement for ezimage-tag, which is the primary tag icon used for the table of contents.")
+(put 'pretty-tag 'function-documentation "Replacement for ezimage-tag, which is used for the table of contents.")
 
 (pretty-speedbar-ezimage "pretty-tags-plus")
 (put 'pretty-tags-plus 'function-documentation "Replacement for ezimage-tag-gt, which is described as closed tags.")
@@ -282,34 +301,34 @@
 (put 'pretty-info 'function-documentation "Replacement for ezimage-info.")
 
 (pretty-speedbar-ezimage "pretty-lock")
-(put 'pretty-lock 'function-documentation "Replacement for ezimage-lock, which is used for read only and private files and directories containing some of these files.")
+(put 'pretty-lock 'function-documentation "Replacement for ezimage-lock, which is used for read only and private.")
 
 (pretty-speedbar-ezimage "pretty-mail")
 (put 'pretty-mail 'function-documentation "Replacement for ezimage-mail.")
 
 (pretty-speedbar-ezimage "pretty-book")
-(put 'pretty-book 'function-documentation "Replacement for ezimage-document-tag, which is described as documentation available.")
+(put 'pretty-book 'function-documentation "Replacement for ezimage-document-tag, which means documentation available.")
 
 (pretty-speedbar-ezimage "pretty-box-closed")
-(put 'pretty-box-closed 'function-documentation "Replacement for ezimage-box-plus, which refers to an expandable container used by the table of contents.")
+(put 'pretty-box-closed 'function-documentation "Replacement for ezimage-box-plus.  Used by the table of contents.")
 
 (pretty-speedbar-ezimage "pretty-box-open")
 (put 'pretty-box-open 'function-documentation "Replacement for ezimage-box-minus, which refers to an open box.")
 
 (pretty-speedbar-ezimage "pretty-folder")
-(put 'pretty-folder 'function-documentation "Replacement for ezimage-directory-plus and ezimage-directory, which both refer to closed directories.")
+(put 'pretty-folder 'function-documentation "Replacement for ezimage-directory-plus and ezimage-directory.")
 
 (pretty-speedbar-ezimage "pretty-folder-open")
-(put 'pretty-folder-open 'function-documentation "Replacement for ezimage-directory-minus, which is described as an open directory.")
+(put 'pretty-folder-open 'function-documentation "Replacement for ezimage-directory-minus.")
 
 (pretty-speedbar-ezimage "pretty-page")
-(put 'pretty-page 'function-documentation "Replacement for ezimage-page, which is described as file with nothing interesting in it.")
+(put 'pretty-page 'function-documentation "Replacement for ezimage-page.")
 
 (pretty-speedbar-ezimage "pretty-page-plus")
-(put 'pretty-page-plus 'function-documentation "Replacement for ezimage-page-plus, which is used by files with a table of contents speedbar can see.")
+(put 'pretty-page-plus 'function-documentation "Replacement for ezimage-page-plus.")
 
 (pretty-speedbar-ezimage "pretty-page-minus")
-(put 'pretty-page-minus 'function-documentation "Replacement for ezimage-plus-minus, which is to contract files with a table of contents speedbar can see.")
+(put 'pretty-page-minus 'function-documentation "Replacement for ezimage-plus-minus.")
 
 ;;;###autoload
 (setq speedbar-expand-image-button-alist
