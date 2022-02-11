@@ -1,3 +1,5 @@
+[![MELPA](https://melpa.org/packages/pretty-speedbar-badge.svg)](https://melpa.org/#/pretty-speedbar)
+
 # Pretty Speedbar for Emacs
 
 ![Pretty speedbar customized for a dark theme](images/pretty_speedbar_sample_dark.png)
@@ -6,18 +8,35 @@ Why turn off the ugly Emacs Speedbar icons when you can replace them with pretty
 
 ## Installation
 
-Pretty Speedbar requires [Font Awesome's solid icon font](https://github.com/FortAwesome/Font-Awesome/tree/master/otfs). "Font Awesome 5 Free-Solid-900.otf" is the current version available from GitHub. Download and install this font.
+Pretty Speedbar requires [Font Awesome's solid icon font](https://github.com/FortAwesome/Font-Awesome/tree/master/otfs). "Font Awesome 5 Free-Solid-900.otf" is the current version available from GitHub. Download and install this font. See [Customization](#customization) for details about using different icon sets.
 
-If you prefer a different icon set, see [Customization](#customization).
+To install, add melpa to your package sources.
 
-Download or clone `pretty-speedbar` and place it in the same directory as your init file or wherever you keep extensions.
+### The MELPA Way
 
+```lisp
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+```
+Then run:
+
+```
+M-x package-install RET pretty-speedbar RET
+```
 Add the following to your init file.
 
 ```lisp
 ;;;;;; Begin pretty-speedbar
-(load "pretty-speedbar")
+(require 'pretty-speedbar)
 ```
+
+### The Straight Way
+
+```lisp
+(straight-use-package 'pretty-speedbar)
+```
+
+### Creating Your First Icon Set
 
 After saving your init file, create your icons.
 
@@ -26,7 +45,7 @@ After saving your init file, create your icons.
 
 Now, restart Emacs, open a file, and run speedbar with `speedbar-toggle` or sr-speedbar with `sr-speedbar-open`. Your icons should be gray.
 
-Now, restart Emacs and start using your pretty speedbar or sr-speedbar, which is my preference.
+Now, restart Emacs and start using your pretty with either speedbar or sr-speedbar, which is my preference.
 
 ## Customization
 
