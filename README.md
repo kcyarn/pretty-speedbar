@@ -8,7 +8,7 @@ Why turn off the ugly Emacs Speedbar icons when you can replace them with pretty
 
 ## Installation
 
-Pretty Speedbar requires [Font Awesome's solid icon font](https://github.com/FortAwesome/Font-Awesome/tree/master/otfs). "Font Awesome 5 Free-Solid-900.otf" is the current version available from GitHub. Download and install this font. See [Customization](#customization) for details about using different icon sets.
+Pretty Speedbar requires [Font Awesome's solid icon font](https://github.com/FortAwesome/Font-Awesome/tree/master/otfs). "Font Awesome 6 Free-Solid-900.otf" is the current version available from GitHub. Download and install this font. See [Customization](#customization) for details about using different icon sets.
 
 To install, add melpa to your package sources.
 
@@ -28,12 +28,14 @@ Add the following to your init file.
 ```lisp
 ;;;;;; Begin pretty-speedbar
 (require 'pretty-speedbar)
+(setq pretty-speedbar-font "Font Awesome 6 Free Solid")
 ```
 
 ### The Straight Way
 
 ```lisp
 (straight-use-package 'pretty-speedbar)
+(setq pretty-speedbar-font "Font Awesome 6 Free Solid")
 ```
 
 ### Creating Your First Icon Set
@@ -121,10 +123,10 @@ Before you cut and paste this entire snippet, search your init file for *custom-
 
 #### Set an Icon Font
 
-Add the following to your init file and change `Font Awesome 5 Free Solid` to your alternative icon font's name.
+Add the following to your init file and change `Font Awesome 6 Free Solid` to your alternative icon font's name.
 
 ```
-(setq pretty-speedbar-font "Font Awesome 5 Free Solid")
+(setq pretty-speedbar-font "Font Awesome 6 Free Solid")
 ```
 
 Please note that changing the icon font requires changing all of the icon variables, which are listed in the icon reference below.
